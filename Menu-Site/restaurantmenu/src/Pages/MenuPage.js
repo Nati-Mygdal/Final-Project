@@ -103,7 +103,7 @@ function MenuPage({categories}) {
       )}
       </div>
       <div className='col s2 scrollable' style={{height:'100vh'}} >
-        <h3>Sales</h3>
+        <h3>Offers</h3>
         <hr/>
         <ul>
           {/* first sale */}
