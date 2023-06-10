@@ -1,0 +1,73 @@
+{% extends 'layout.html' %} {% block content %}
+<div>
+  {% if messages %}
+  <ul class="messages">
+      {% for message in messages %}
+          <li{% if message.tags %} class="{{ message.tags }}"{% endif %} style="background-color: red;">{{ message }}</li>
+      {% endfor %}
+  </ul>
+  {% endif %}
+</div>
+<div style="margin: 15px;">
+  <h1 style="font-family: cursive;text-align: center;">Manage Carts</h1>
+  <h4>Filter By:</h4>
+<div class="row">
+    <form class="col s12 m4" action="{% url 'carts-by-username' %}" method="POST">
+        {% csrf_token %}
+      <div class="row">
+        <div class="input-field col s6">
+          <label for="username">Username</label>
+          <input placeholder="Username" name="username" type="text" class="validate">
+          <button type="submit">search carts</button>
+        </div>
+      </div>
+    </form>
+    <form class="col s12 m4" action="{% url 'carts-by-user-id' %}" method="POST">
+        {% csrf_token %}
+        <div class="row">
+          <div class="input-field col s6">
+            <label for="id">User's ID</label>
+            <input placeholder="User ID" name="id" type="number" class="validate">
+            <button type="submit">search carts</button>
+          </div>
+        </div>
+      </form>
+      <form class="col s12 m4" action="{% url 'cart-by-id' %}" method="POST">
+        {% csrf_token %}
+        <div class="row">
+          <div class="input-field col s6">
+            <label for="id">Order ID</label>
+            <input placeholder="Order ID" name="order_id" type="number" class="validate">
+            <button type="submit">search cart</button>
+          </div>
+        </div>
+      </form>
+</div>
+<h5>Fill in one of the above forms to find your wanted carts</h5>
+</div>
+{% for cart in carts %}
+<br><br>
+<label style="font-weight: bolder;color: black;" for="big1">Cart ID: {{cart.id}} User: {{cart.profile_id}}</label>
+<div>
+<table id="big1" class="highlight centered">
+    <thead>
+      <tr>
+          <th>Dish Name</th>
+          <th>Description</th>
+          <th>Amount</th>
+          <th>Price</th>
+      </tr>
+    </thead>
+    {% for item in cart.item_set.all %}
+    <tbody>
+      <tr>
+        <td>{{item.dish.name}}</td>
+        <td>{{item.dish.description}}</td>
+        <td>{{item.amount}}</td>
+        <td>{{item.dish.price}}$</td>
+      </tr>
+      </tbody>  
+    {% endfor %}
+      </table>
+{% endfor %}
+{% endblock content %}

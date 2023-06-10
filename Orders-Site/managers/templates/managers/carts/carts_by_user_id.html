@@ -1,0 +1,42 @@
+{% extends 'layout.html' %} {% block content %}
+<div>
+    <h4>all carts made by {{user.username}}, user ID: {{user.id}}</h4>
+    <span style="color: red; font-weight: bold;">Warning! deleting a cart will also delete the cart's delivery permently!</span>
+</div>
+{% if not has_carts %}
+  <span>Looks like {{user}} has no carts.</span>
+{% endif %}
+{% for cart in carts %}
+<label style="font-weight: bolder;color: black;" for="big2">Order ID: {{cart.id}}</label>
+<div>
+{% for delivery in deliveries %}
+{% if delivery.cart == cart %}
+  <div>
+    {{delivery.address}} ~ {{delivery.comment}}
+    <a class="btn-small black white-text right" href="{% url 'delete-cart' id=cart.id %}">Delete From DB</a>
+  </div>
+{% endif %}
+{% endfor %}
+</div>
+<table id="big2" class="highlight centered">
+    <thead>
+      <tr>
+          <th>Dish Name</th>
+          <th>Description</th>
+          <th>Amount</th>
+          <th>Price</th>
+      </tr>
+    </thead>
+    {% for item in cart.item_set.all %}
+    <tbody>
+      <tr>
+        <td>{{item.dish.name}}</td>
+        <td>{{item.dish.description}}</td>
+        <td>{{item.amount}}</td>
+        <td>{{item.dish.price}}$</td>
+      </tr>
+      </tbody>  
+    {% endfor %}
+      </table>
+{% endfor %}
+{% endblock content %}

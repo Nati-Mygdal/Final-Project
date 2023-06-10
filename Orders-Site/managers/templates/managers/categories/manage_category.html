@@ -1,0 +1,11 @@
+{% extends 'layout.html' %} {% block content %}
+<div style="margin: 15px;">
+    <h1>{{category}}</h1>
+    <form action="{% url 'manage-category' id=category.id %}" method="POST">
+    {% csrf_token %}
+    <input type="text" name="name" value="{{category.name}}" placeholder="Name" required>
+    <textarea name="imageUrl" placeholder="imageUrl" required>{{category.imageUrl}}</textarea>
+    <button type="submit">Save</button>
+</form>
+</div>
+{% endblock content %}

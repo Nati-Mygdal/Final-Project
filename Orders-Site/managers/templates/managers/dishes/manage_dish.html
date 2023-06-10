@@ -1,0 +1,36 @@
+{% extends 'layout.html' %} {% block content %}
+<div style="margin:15px">
+  <h1>{{dish}}</h1>
+<form action="{% url 'manage-dish' id=dish.id %}" method="POST">
+    {% csrf_token %}
+    <input type="text" name="name" value="{{dish.name}}" placeholder="Name" required>
+    <input type="number" name="price" value="{{dish.price}}" placeholder="Price" required>
+    <textarea name="description" placeholder="Description" required>{{dish.description}}</textarea>
+    <textarea name="imageUrl" placeholder="imageUrl" required>{{dish.imageUrl}}</textarea>
+       <p>
+        <label>
+          <input type="checkbox" name="is_gluten_free" value="is_gluten_free" 
+          {% if dish.is_gluten_free %} checked {% endif %} />
+          <span>gluten free</span>
+        </label>
+      </p>
+      <p>
+        <label>
+          <input type="checkbox" name="is_vegeterian" value="is_vegeterian"
+          {% if dish.is_vegeterian %} checked {% endif %} />
+          <span>vegeterian</span>
+        </label>
+      </p>
+      <label for="category">Category</label>
+      <div class="input-field col s12">
+        <select class="browser-default" name="category">
+            <option value="{{dish.category.id}}" selected >{{dish.category.name}}</option>
+            {% for category in categories %}
+            <option value="{{category.id}}">{{category}}</option>
+            {% endfor %}
+        </select>
+      </div>
+    <button type="submit">Save</button>
+</form>
+</div>
+{% endblock content %}

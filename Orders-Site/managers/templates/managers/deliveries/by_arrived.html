@@ -1,0 +1,46 @@
+{% extends 'layout.html' %} {% block content %}
+<div>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %} style="background-color: red;">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+  </div>
+{% if deliveries %}
+  <h1 style="font-family: cursive;text-align: center;">Manage Deliveries</h1>
+  <span style="color: red; font-weight: bold;">Warning! deleting a delivery will also delete the delivery's cart permently!</span>
+    <table class="centered">
+    <thead>
+      <tr>
+          <th>Order Number</th>
+          <th>Created</th>
+          <th>is arrived</th>
+          <th>Checks</th>
+      </tr>
+    </thead>
+
+    <tbody>
+        {% for delivery in deliveries %}
+      <tr>
+        <td>{{delivery.cart.id}}</td>
+        <td>{{delivery.created | timesince}} ago</td>
+        {% if delivery.is_delivered %}
+        <td><i class="medium material-icons">check</i></td>
+        <td>
+            <a class="btn black white-text" href="{% url 'mark-unarrived' id=delivery.cart.id %}">Unarrive</a>
+          {% else %}
+          <td><i class="medium material-icons">close</i></td>
+          <td>
+            <a class="btn black white-text" href="{% url 'mark-arrived' id=delivery.cart.id %}">Arrive</a>
+          {% endif %}
+            <a class="btn black white-text" href="{% url 'delete-del' id=delivery.cart.id %}">Delete Delivery</a>
+          </td>
+        </td>
+      </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
+{% endblock %}

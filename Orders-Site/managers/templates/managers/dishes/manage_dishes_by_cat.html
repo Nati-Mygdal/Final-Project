@@ -1,0 +1,18 @@
+{% extends 'layout.html' %} {% block content %}
+<div style="margin: 15px;">
+  {% for dish in dishes %}
+<ul class="collection">
+    <li class="collection-item avatar">
+      <img src="{{dish.imageUrl}}" class="circle">
+      <span class="title">{{dish.name}}</span>
+      <form class="secondary-content" action="{% url 'delete-dish' id=dish.id %}" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="delete" value="True">
+        <button class="btn">Delete</button>
+      </form>
+      <a href="{% url 'manage-dish' id=dish.id %}" class="btn">edit dish</a>
+    </li>
+</ul>
+{% endfor %}
+</div>
+{% endblock content %}

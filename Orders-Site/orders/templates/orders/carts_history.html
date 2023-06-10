@@ -1,0 +1,42 @@
+{% extends 'layout.html' %} {% block content %}
+{% if not has_orders %}
+  <h4 style="font-family: cursive;">
+    Hey {{request.user.first_name}}, You have no orders yet! start adding to your cart!
+    <a class="btn-small black white-text" href="{% url 'show-categories' %}">Order now</a>
+  </h4>
+{% endif %}
+{% for cart in carts %}
+<br><br>
+<label style="font-weight: bolder;color: black;" for="big1">Order ID: {{cart.id}}</label>
+<div>
+{% for delivery in deliveries %}
+{% if delivery.cart == cart %}
+  <div>
+    {{delivery.address}} ~ {{delivery.comment}}
+    <a class="btn-small black white-text right" href="{% url 're-order' id=cart.id %}">Order again!</a>
+  </div>
+{% endif %}
+{% endfor %}
+</div>
+<table id="big1" class="highlight centered">
+    <thead>
+      <tr>
+          <th>Dish Name</th>
+          <th>Description</th>
+          <th>Amount</th>
+          <th>Price</th>
+      </tr>
+    </thead>
+    {% for item in cart.item_set.all %}
+    <tbody>
+      <tr>
+        <td>{{item.dish.name}}</td>
+        <td>{{item.dish.description}}</td>
+        <td>{{item.amount}}</td>
+        <td>{{item.dish.price}}$</td>
+      </tr>
+      </tbody>  
+    {% endfor %}
+      </table>
+{% endfor %}
+{% endblock content %}

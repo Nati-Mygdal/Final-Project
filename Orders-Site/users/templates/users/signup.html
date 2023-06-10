@@ -1,0 +1,38 @@
+{% extends 'layout.html' %} {% block content %}
+<div>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %} style="background-color: red;">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>
+<div style="margin: 15px;">
+    <h3 style="font-family: Arial, Helvetica, sans-serif;">Sign Up:</h3>
+<form action="{% url 'user-signup' %}" method="POST">
+    {% csrf_token %}
+    <div>
+        <input type="text" name="username" placeholder="Username" required>
+    </div>
+    <div>
+        <input type="password" name="password" placeholder="Password" required>
+    </div>
+    <div>
+        <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+    </div>
+    <div>
+        <input type="text" name="first_name" placeholder="First Name" required>
+    </div>
+    <div>
+        <input type="text" name="last_name" placeholder="Last Name" required>
+    </div>
+    <div>
+        <input type="email" name="email" placeholder="Email" required>
+    </div>
+    <div>
+        <button class="btn" type="submit">Sign Up</button>
+    </div>
+</form>
+</div>
+{% endblock content %}

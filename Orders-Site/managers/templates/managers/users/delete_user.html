@@ -1,0 +1,12 @@
+{% extends 'layout.html' %} {% block content %}
+<div class="row">
+    <h5>You are about to permenatly delete {{user.username}}'s Account</h5>
+    <div>
+        <p>Please confirm your action</p>
+    </div>
+    <form action="{% url 'delete-user' id=user.id %}" method="POST">
+        {% csrf_token %}
+        <button class="btn red" type="submit">Delete</button>
+    </form>
+</div>
+{% endblock content %}

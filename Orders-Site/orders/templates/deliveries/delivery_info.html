@@ -1,0 +1,49 @@
+{% extends 'layout.html' %} {% block content %}
+  <div>
+    {% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+  </div>
+
+  <table class="highlight centered">
+    <thead>
+      <tr>
+          <th>Bill to pay</th>
+          <th>{{total}}$</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Order time:</td>
+        <td>{{delivery.created}}</td>
+      </tr>
+      <tr>
+        <td>phone</td>
+        <td>{{delivery.phone}}</td>
+      </tr>
+      <tr>
+        <td>Order number</td>
+        <td>{{delivery.cart.id}}</td>   
+      </tr>
+    </tbody>
+  </table>
+
+<label style="font-weight: bolder;color: black;" for="items1">Ordered:</label>
+<ul class="collection" id="items1">
+    {% for item in items %}
+    <li class="collection-item avatar black white-text">
+      <img src="{{item.dish.imageUrl}}" class="circle">
+      <span class="title">{{item.dish.name}}</span>
+      <p>{{item.dish.description}} <br>
+        {{item.dish.price}}$ per unit <br>
+        Amount :{{item.amount}}
+      </p>
+      <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+    </li>
+    {% endfor %}
+  </ul>
+{% endblock content %}

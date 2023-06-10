@@ -1,0 +1,11 @@
+{% extends 'layout.html' %} {% block content %}
+<div style="margin: 15px;">
+    <h1>{{category}}</h1>
+<form action="{% url 'add-category' %}" method="POST">
+    {% csrf_token %}
+    <input type="text" name="name" placeholder="Name" required>
+    <textarea name="imageUrl" placeholder="imageUrl" required></textarea>
+    <button type="submit">Add</button>
+</form>
+</div>
+{% endblock content %}

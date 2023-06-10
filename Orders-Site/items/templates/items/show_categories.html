@@ -1,0 +1,13 @@
+{% extends 'layout.html' %} {% block content %}
+<ul class="collection">
+  {% for category in categories %}
+    <li class="collection-item avatar teal lighten-4">
+      <img src="{{category.imageUrl}}" class="circle">
+      <span style="font-family: Comic Sans MS;" class="title">{{category}}</span>
+      <p>
+        <a class="btn black white-text right" href="{% url 'show-dishes' id=category.id %}">See more!</a>
+    </p>
+    </li>
+  {% endfor %}
+</ul>
+{% endblock content %}

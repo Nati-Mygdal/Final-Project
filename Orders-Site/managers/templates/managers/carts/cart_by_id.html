@@ -1,0 +1,27 @@
+{% extends 'layout.html' %} {% block content %}
+<div>
+    <h4>{{user.username}}, user ID: {{user.id}}, cart number: {{cart.id}}</h4>
+    <span style="color: red; font-weight: bold;">Warning! deleting a cart will also delete the cart's delivery permently!</span>
+    <a class="btn-small black white-text right" href="{% url 'delete-cart' id=cart.id %}">Delete From DB</a>
+</div>
+<table class="highlight centered">
+    <thead>
+      <tr>
+          <th>Dish Name</th>
+          <th>Description</th>
+          <th>Amount</th>
+          <th>Price</th>
+      </tr>
+    </thead>
+    {% for item in cart.item_set.all %}
+    <tbody>
+      <tr>
+        <td>{{item.dish.name}}</td>
+        <td>{{item.dish.description}}</td>
+        <td>{{item.amount}}</td>
+        <td>{{item.dish.price}}$</td>
+      </tr>
+      </tbody>  
+    {% endfor %}
+      </table>
+{% endblock content %}

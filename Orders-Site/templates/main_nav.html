@@ -1,0 +1,19 @@
+{% load static %}
+<nav>
+    <div class="nav-wrapper teal lighten-3">
+        <a href="#" class="brand-logo"><img src="{% static 'images/logo.png' %}" height="62em" width="125em"></a>
+      <ul class="left" style="padding-left: 10%;">
+        <li><a  class="btn black" href="{% url 'main-page' %}">Home</a></li>
+        <li><a class="btn black" href="{% url 'dishes-by-order' %}">Menu</a></li>
+        <li><a class="btn black" href="{% url 'about-us' %}">About</a></li>
+      </ul>
+      {% if user.is_authenticated %}
+        <a style="margin:5px" href="{% url 'user-logout' %}" class="breadcrumb btn-small grey darken-2 white-text right">Logout</a>
+        <a style="margin:5px" href="{% url 'show-cart' id=request.user.id %}" class="btn black white-text right">My Cart</a>
+        <a style="margin:5px" href="{% url 'order-history' id=request.user.id %}" class="btn black white-text right">Order history</a>
+      {% else %}
+         <a style="margin:5px" href="{% url 'user-login' %}" class="breadcrumb btn black white-text right">Login</a>
+        <a style="margin:5px" href="{% url 'user-signup' %}" class="breadcrumb btn black white-text right">Signup</a>
+      {% endif %}
+    </div>
+</nav>

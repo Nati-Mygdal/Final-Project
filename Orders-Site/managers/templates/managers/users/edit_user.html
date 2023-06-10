@@ -1,0 +1,36 @@
+{% extends 'layout.html' %} {% block content %}
+<h5 class="red"> please notice that you must re-enter password / make a new one or you will not be able to make any changes!</h5>
+<form action="{% url 'edit-user' id=user.id %}" method="POST">
+    {% csrf_token %}
+    <div>
+        <label for="username">Username</label>
+        <input type="text" name="username" placeholder="Username" value="{{user.username}}" required>
+    </div>
+    <div>
+        <label for="password">Change password or enter again old one.</label>
+        <input type="password" name="password" placeholder="Password" required>
+    </div>
+    <div>
+        <label for="first_name">First Name</label>
+        <input type="text" name="first_name" placeholder="First Name" value="{{user.first_name}}" required>
+    </div>
+    <div>
+        <label for="last_name">Last Name</label>
+        <input type="text" name="last_name" placeholder="Last Name" value="{{user.last_name}}" required>
+    </div>
+    <div>
+        <label for="email">Email</label>
+        <input type="email" name="email" placeholder="Email" value="{{user.email}}" required>
+    </div>
+    <p>
+        <label>
+          <input type="checkbox" name="is_staff" {% if user.is_staff %} checked {% endif %} />
+          <span>Manager</span>
+        </label>
+        <button style="margin-left: 40%;" class="btn-small black white-text" type="submit">Edit</button>
+      </p>
+    <div>
+        
+    </div>
+</form>
+{% endblock content %}

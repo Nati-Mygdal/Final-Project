@@ -1,0 +1,21 @@
+{% extends 'layout.html' %} {% block content %}
+<div style="margin: 15px;">
+  <h1 style="text-align: center;font-family: cursive;">Manage Categories</h1>
+<a class="btn" href="{% url 'add-category' %}">Add new category</a>
+<ul class="collection">
+  {% for category in categories %}
+    <li class="collection-item avatar">
+      <img src="{{category.imageUrl}}" alt="" class="circle">
+      <span class="title">{{category.name}}</span>
+      <form class="secondary-content" action="{% url 'delete-category' id=category.id %}" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="delete" value="True">
+        <button class="btn">Delete</button>
+      </form>
+      <a href="{% url 'manage-category' id=category.id %}" class="btn">edit category</a>
+      <a href="{% url 'manage-dish-by-cat' id=category.id %}" class="btn">dishes</a>
+    </li>
+    {% endfor %}
+</ul>
+</div>
+{% endblock content %}

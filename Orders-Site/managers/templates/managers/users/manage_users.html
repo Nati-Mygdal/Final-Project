@@ -1,0 +1,50 @@
+{% extends 'layout.html' %} {% block content %}
+<div>
+  {% if messages %}
+  <ul class="messages">
+      {% for message in messages %}
+          <li{% if message.tags %} class="{{ message.tags }}"{% endif %} style="background-color: red;">{{ message }}</li>
+      {% endfor %}
+  </ul>
+  {% endif %}
+</div>
+<div class="row">
+  <h1 style="font-family: cursive;text-align: center;">Manage Users</h1>
+  <span style="color: red; font-weight: bold;">Warning! deleting a User will also delete all user's orders and carts permently!</span>
+  <table class="striped centered">
+    <thead>
+      <tr>
+          <th>ID</th>
+          <th>Username</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th>Is Manager</th>
+          <th>Edit</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for user in users %}
+      <tr>
+        <td>{{user.id}}</td>
+        <td>{{user.username}}</td>
+        <td>{{user.first_name}}</td>
+        <td>{{user.last_name}}</td>
+        <td>{{user.email}}</td>
+        {% if user.is_staff %}
+        <td><i class="medium material-icons green">check</i></td>
+        <td>        
+          <a class="btn-small black white-text" href="{% url 'cancel-manager' id=user.id %}">Cancel Manager</a>
+        {% else %}
+        <td><i class="medium material-icons red">close</i></td>
+          <td><a class="btn-small black white-text" href="{% url 'make-manager' id=user.id %}">Make Manager</a>
+        {% endif %}
+          <a class="btn-small black white-text" href="{% url 'delete-user' id=user.id %}">Delete Account</a>
+          <a class="btn-small black white-text" href="{% url 'edit-user' id=user.id %}">Edit User</a>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock content %}

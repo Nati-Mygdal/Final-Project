@@ -1,0 +1,34 @@
+{% extends 'layout.html' %} {% block content %}
+<div style="margin:15px">
+  <form action="{% url 'add-dish' %}" method="POST">
+    {% csrf_token %}
+    <input type="text" name="name" placeholder="Name" required>
+    <input type="number" name="price" placeholder="Price" required>
+    <textarea name="description" placeholder="Description" required></textarea>
+    <textarea name="imageUrl" placeholder="imageUrl" required></textarea>
+    <p>
+        <label>
+          <input type="checkbox" name="is_gluten_free" value="is_gluten_free" />
+          <span>gluten free</span>
+        </label>
+      </p>
+      <p>
+        <label>
+          <input type="checkbox" name="is_vegeterian" value="is_vegeterian" />
+          <span>vegeterian</span>
+        </label>
+      </p>
+      <div class="input-field col s12">
+        <select class="browser-default" name="category">
+            <option value="" disabled selected >Category</option>
+            {% for category in categories %}
+            <option value="{{category.id}}">{{category}}</option>
+            {% endfor %}
+        </select>
+      </div>
+       <div>
+        <button class="btn" type="submit">Add</button>
+       </div>
+</form>
+</div>
+{% endblock content %}

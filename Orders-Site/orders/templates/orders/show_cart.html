@@ -1,0 +1,68 @@
+{% extends 'layout.html' %} {% block content %}
+  <div>
+    {% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}
+      </li>
+    {% endfor %}
+  </ul>
+{% endif %}
+  </div>
+<table class="highlight centered">
+    <thead>
+      <tr>
+          <th>Dish Name</th>
+          <th>Description</th>
+          <th>Amount</th>
+          <th>Changes</th>
+          <th>Price</th>
+      </tr>
+    </thead>
+    {% for item in items %}
+    <tbody>
+      <tr>
+        <td>{{item.dish}}</td>
+        <td>{{item.dish.description}}</td>
+        <td>{{item.amount}}</td>
+        <td>
+            <a class="btn" href="{% url 'delete-dish-from-cart' id=item.dish.id %}">Remove</a>
+        </td>
+        <td>{{item.dish.price}}$</td>
+      </tr>
+    {% endfor %}
+      <tr>
+        <td>Total</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>{{total}}$</td>
+      </tr>
+      </tbody>
+      </table>
+      <div class="row">
+        <form class="col s12" action="{% url 'show-cart' id=request.user.id %}" method="POST">
+            {% csrf_token %}
+            <div class="row">
+              <label for="address">Address</label>
+                <div class="input-field col s12">
+                  <input name="address" placeholder="Address" type="text" class="validate" required>
+                </div>
+              </div>
+            <div class="row">
+              <label for="comment">Comment</label>
+            <div class="input-field col s12">
+                <input name="comment" placeholder="Comment" type="text" class="validate">
+            </div>
+            </div>
+            <div class="row">
+              <label for="phone">Telephone</label>
+            </div>
+            <div class="input-field col s6">
+                <i class="material-icons prefix">phone</i>
+                <input id="icon_telephone" name="phone" type="tel" class="validate" required>
+              </div>
+              <button type="submit" class="waves-effect waves-light btn-large red"><i class="material-icons left">shopping_cart</i>Send Delivery</button> 
+        </form>
+      </div>
+{% endblock content %}

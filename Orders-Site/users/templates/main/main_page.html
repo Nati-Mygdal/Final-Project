@@ -1,0 +1,138 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Best Restraunt</title>
+    <link rel="stylesheet" href="{% static 'materialize.css' %}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</head>
+<body class="teal lighten-5">
+{% include 'main_nav.html' %}
+  <div style="position: relative;">
+    <img src="{% static 'images/weback.png' %}" width="100%" height="400em">
+    <a style="display: block;
+              position: absolute;
+              left: 50%;
+              transform: translateX(-50%);
+              bottom: 50px;" class="btn-large white black-text" href="{% url 'show-categories' %}">Order Now!</a>
+  </div>
+  </div>
+      {% if request.user.is_staff %}
+        <hr style="margin: 0; height: 5px;">
+        {% include 'manager_sidenav.html' %}
+      {% endif %}
+
+<br>
+<div style="font-size: 35px;font-weight: bolder; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; margin-left: 40%; margin-top: 30px;">
+  Eat • Drink • Enjoy
+</div>
+<br>
+<div style="font-size: 22px;; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; margin-left: 10%;margin-right: 10%;text-align: center;">
+  At our Italian restaurant, we know that the key to great food is using the freshest ingredients and traditional cooking techniques. From classic pizzas to homemade pasta, we've got your cravings covered. Come and indulge in delicious dishes that will transport you to the streets of Italy. <br> Fast delivery also available!
+</div>
+<br>
+<br>
+<div>
+  {% if messages %}
+  <ul class="messages">
+      {% for message in messages %}
+          <li{% if message.tags %} class="{{ message.tags }}"{% endif %} style="background-color: green;">{{ message }}.</li>
+      {% endfor %}
+  </ul>
+  {% endif %}
+</div>
+<div class="row">
+  <!-- first card -->
+  <div class="col s12 m4">
+    <div class="card sticky-action" >
+      <div class="card-image waves-effect waves-block waves-light">
+        <span class="card-title"><a class="white-text" {% if user.is_authenticated %} href="{% url 'order-history' id=request.user.id %}" {% else %} href="{% url 'user-login' %}" {% endif %}>Order History</a></span>
+        <img class="activator" src="https://crazypizza.com/uploads/2021/01/crazy_pizza_040820_0208-web-2500x1500.jpg" height="300em">
+      </div>
+      <div class="card-content">
+        <span class="card-title activator grey-text text-darken-4"><i class="material-icons right">more_vert</i></span>
+        <p>
+          Keep Track of Your Delicious Meals! <br>
+          We highly value our customers and strive to make their dining experience as convenient as possible at our Italian restaurant.
+        </p>
+      </div>
+      <div class="card-reveal">
+        <span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i></span>
+        <p style="font-family: futura;font-weight: bolder;">
+          Keep Track of Your Delicious Italian Meals! <br>
+          At our Italian restaurant, we value our customers and want to make your dining experience as convenient as possible. With our easy-to-use online ordering system, you can now access your order history with just a few clicks. Keep track of your past orders, view your favorite dishes, and quickly reorder your go-to Italian meals. We're here to serve you better and ensure that your next visit is nothing short of delicious. Buon appetito!
+        </p>
+        <a class="btn-small black white-text" {% if user.is_authenticated %} href="{% url 'order-history' id=request.user.id %}" {% else %} href="{% url 'user-login' %}" {% endif %}>Order History</a>
+      </div>
+    </div>
+  </div>
+  <!-- middle card -->
+  <div class="col s12 m4">
+    <div class="card sticky-action" >
+      <div class="card-image waves-effect waves-block waves-light">
+        <span class="card-title"><a class="white-text" href="{% url 'dishes-by-order' %}">Full Menu</a></span>
+        <img class="activator" src="https://eagleowl.in/w/wp-content/uploads/2021/06/restaurant-menu-design-1024x683.jpg" height="300em">
+      </div>
+      <div class="card-content">
+        <span class="card-title activator grey-text text-darken-4"><i class="material-icons right">more_vert</i></span>
+        <p>
+          Enjoy a variety of traditional Italian dishes and creative desserts and cocktails on our menu. Locally-sourced ingredients ensure the freshest flavors in our appetizers, pastas, and mains.
+        </p>
+      </div>
+      <div class="card-reveal">
+        <span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i></span>
+        <p style="font-family: futura;font-weight: bolder;">
+          Our menu features a variety of traditional Italian dishes, creative desserts, and delightful cocktails.
+      Guests can choose from a range of appetizers, pastas, and main courses prepared with the freshest seafood and locally-sourced ingredients.          
+      In addition to our regular menu, we offer daily and weekly specials based on the freshest catch of the day.
+        </p>
+        <div>
+          <a class="btn-small black white-text" href="{% url 'dishes-by-order' %}">Full Menu</a>
+          <a class="btn-small black white-text right" href="{% url 'show-categories' %}">Dining Options</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- last card -->
+  <div class="col s12 m4">
+    <div class="card sticky-action" >
+      <div class="card-image waves-effect waves-block waves-light">
+        <span class="card-title"><a class="white-text" href="{% url 'about-us' %}">About us</a></span>
+        <img class="activator" src="https://www.hospitalitybusiness.co.nz/wp-content/uploads/2023/03/Untitled-design-2023-03-15T101815.899.jpg" height="300em">
+      </div>
+      <div class="card-content">
+        <span class="card-title activator grey-text text-darken-4"><i class="material-icons right">more_vert</i></span>
+        <p>
+          We believe in nourishing the body and delighting the senses with our carefully crafted menu of classic and regional Italian dishes made with fresh, locally sourced ingredients.
+        </p>
+      </div>
+      <div class="card-reveal">
+        <span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i></span>
+        <p style="font-family: futura;font-weight: bolder;">
+          Our warm and inviting atmosphere, friendly service, and extensive wine selection make dining with us a memorable experience. Private dining options available. Buon appetito!
+          an exceptional dining experience. Our warm and inviting atmosphere is designed to make you feel at home, and our friendly and knowledgeable staff is always ready to assist you in choosing the perfect dish or wine pairing.
+          We take pride in our commitment to hospitality, and we strive to create lasting memories for our guests. From the moment you walk through our doors, you will be greeted with a genuine Italian welcome and treated with the utmost care and attention.
+          But it's not just about the food and service - it's also about the company you keep. Our restaurant is a place where friends and family come together to enjoy good food, good wine, and good company. We believe that dining is an experience to be shared and cherished, and we are honored to be a part of your special moments.
+          In addition to our exceptional dining experience, we also offer private dining options for special events and celebrations. Whether you're planning a birthday party, a business gathering, or a romantic dinner for two, our private dining spaces are perfect for creating memorable experiences.
+          We are proud to be a part of the rich culinary heritage of Italy, and we are committed to bringing the flavors of Italy to your table. Join us at The Bites Of Python for an unforgettable Italian dining experience that will transport your taste buds to the heart of Italy. Buon appetito!
+        </p>
+        <a class="btn-small black white-text" href="{% url 'about-us' %}">About us</a>
+      </div>
+    </div>
+  </div>
+</div>
+<br><br>
+<hr>
+<img src="{% static 'images/footer.png' %}" width="100%">
+<footer style="margin-top: 80px;">
+  {% if not user.is_authenticated %}
+  <a class="btn-small right black white-text" href="{% url 'manager-login' %}">Manager's Login</a>
+  {% endif %}
+  <p>&copy; 2023 The Bites of Python</p>
+</footer>
+</body>
+</html>

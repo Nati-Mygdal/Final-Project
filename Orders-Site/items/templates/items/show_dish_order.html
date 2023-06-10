@@ -1,0 +1,49 @@
+{% extends 'layout.html' %} {% block content %} {% load static %}
+<h1 style="font-family: lucida;text-align: center;">Menu</h1>
+{% for category in categories %}
+<ul class="collection">    
+  <li>
+    <h3 style="font-family: Comic Sans MS;">
+      {{category}}
+    </h3>
+  </li>
+</ul>
+  {% for dish in category.dish_set.all %}
+  <ul class="collection">
+    <li class="collection-item avatar teal lighten-5">
+      <div class="row">
+        <div class="col s4">
+          <img src="{{dish.imageUrl}}" width="150px" height="150px">
+        </div>
+        <div class="col s8">
+          <span class="title">{{dish}}</span>
+          <p>{{dish.description}}
+            <div>
+              {% if dish.is_vegeterian %}
+                <img src="{% static 'images/vegan.png' %}" height="30px" width="30px">
+              {% endif %}
+              {% if dish.is_gluten_free %}
+                <img src="{% static 'images/noglut.png' %}" height="45px" width="45px">
+              {% endif %}
+            </div>
+          </p>
+          <form action="{% url 'add-to-cart' id=dish.id %}" method="POST">
+            {% csrf_token %}
+            <div class="input-field">
+              <input id="lab" type="number" name="amount" value="1">
+              <label for="lab">Amount</label>
+            </div>
+          </div>
+        </div>
+        <div class="col s2">
+          <div class="card-action">
+            <button class="btn-small right black white-text" type="submit">add to cart</button>
+            <div>{{dish.price}} $</div>
+          </div>
+        </div>
+      </form>
+    </li>
+  </ul>
+    {% endfor %}
+{% endfor %}
+{% endblock content %}
